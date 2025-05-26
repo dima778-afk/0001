@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список прізвищ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="list-view">
+            <h1>Прізвища нашої родини</h1>
+            <div class="surname-column">
+                <h2>Список 1</h2>
+                <ul>
+                    <li><button class="surname-button" data-surname="Kovalchuk">Ковальчук</button></li>
+                    <li><button class="surname-button" data-surname="Melnyk">Мельник</button></li>
+                    <li><button class="surname-button" data-surname="Shevchenko">Шевченко</button></li>
+                    <li><button class="surname-button" data-surname="Petrenko">Петренко</button></li>
+                </ul>
+            </div>
+            <div class="surname-column">
+                <h2>Список 2</h2>
+                <ul>
+                    <li><button class="surname-button secondary" data-surname="Ivanenko">Іваненко</button></li>
+                    <li><button class="surname-button secondary" data-surname="Tkachenko">Ткаченко</button></li>
+                    <li><button class="surname-button secondary" data-surname="Savchenko">Савченко</button></li>
+                    <li><button class="surname-button secondary" data-surname="Polishchuk">Поліщук</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="details-view" class="details-section">
+            <h2>Деталі для прізвища: <span id="detail-surname-name"></span></h2>
+            <p id="detail-surname-info"></p>
+            <button class="back-button" id="back-to-list">Повернутися до списку</button>
+        </div>
+    </div>
+
+    <script src="script1.js"></script>
+</body>
+</html>
