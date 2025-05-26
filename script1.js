@@ -1,14 +1,23 @@
-const surnameDetails = {
+// Окремі об'єкти для кожного списку прізвищ
+const surnameDetailsList1 = {
     "Kovalchuk": "Іван Ковальчук, народився 1980 року, походить з Житомирщини. Відомий своїми ремеслами у виробництві меблів.",
     "Melnyk": "Оксана Мельник, народилася 1992 року, працює дизайнером інтер'єрів. Її роботи відзначені за креативність.",
     "Shevchenko": "Тарас Шевченко, рік народження 1814. Великий український поет, прозаїк, художник та громадський діяч.",
-    "Petrenko": "Сергій Петренко, 1975 р.н., викладач математики у київському університеті. Автор кількох наукових праць.",
+    "Petrenko": "Сергій Петренко, 1975 р.н., викладач математики у київському університеті. Автор кількох наукових праць."
+};
+
+const surnameDetailsList2 = {
     "Ivanenko": "Анна Іваненко, 1988 р.н., лікар-педіатр. Завжди готова допомогти своїм маленьким пацієнтам.",
     "Tkachenko": "Дмитро Ткаченко, 1965 р.н., фермер. Займається вирощуванням органічних овочів на Черкащині.",
     "Savchenko": "Вікторія Савченко, 2000 р.н., студентка Національного університету. Активістка молодіжного руху.",
     "Polishchuk": "Олег Поліщук, 1978 р.н., інженер-програміст. Спеціалізується на розробці мобільних додатків.",
-    "Zelenskyy": "Володимир Зеленський, народився 1978 року. Президент України." // Додаємо нове прізвище
+    "Zelenskyy": "Володимир Зеленський, народився 1978 року. Президент України." // Нове прізвище для Списку 2
 };
+
+// Об'єднуємо всі деталі в один об'єкт для зручного пошуку
+// Це дозволить знайти деталі незалежно від того, в якому списку знаходиться прізвище
+const allSurnameDetails = { ...surnameDetailsList1, ...surnameDetailsList2 };
+
 
 const listView = document.getElementById('list-view');
 const detailsView = document.getElementById('details-view');
@@ -20,7 +29,8 @@ const surnameList1 = document.getElementById('surname-list-1');
 const surnameList2 = document.getElementById('surname-list-2');
 
 // Функція для створення кнопки прізвища
-function createSurnameButton(surnameKey, isSecondary = false) {
+// Тепер приймає також об'єкт з деталями для прив'язки
+function createSurnameButton(surnameKey, detailsObject, isSecondary = false) {
     const li = document.createElement('li');
     const button = document.createElement('button');
     button.className = 'surname-button';
@@ -31,8 +41,9 @@ function createSurnameButton(surnameKey, isSecondary = false) {
     button.textContent = surnameKey; // Відображаємо сам ключ (Kovalchuk, Ivanenko тощо)
 
     button.addEventListener('click', () => {
+        // Тепер шукаємо деталі в об'єднаному об'єкті
         detailSurnameName.textContent = surnameKey;
-        detailSurnameInfo.textContent = surnameDetails[surnameKey] || "Деталі не знайдено.";
+        detailSurnameInfo.textContent = allSurnameDetails[surnameKey] || "Деталі не знайдено.";
 
         listView.style.display = 'none';
         detailsView.style.display = 'block';
@@ -42,19 +53,16 @@ function createSurnameButton(surnameKey, isSecondary = false) {
     return li;
 }
 
-// Розділяємо прізвища на два списки (наприклад, перші 4 і наступні)
-const allSurnames = Object.keys(surnameDetails);
-const list1Surnames = allSurnames.slice(0, 4); // Перші 4 прізвища
-const list2Surnames = allSurnames.slice(4); // Решта прізвищ
-
 // Генеруємо кнопки для Списку 1
-list1Surnames.forEach(surnameKey => {
-    surnameList1.appendChild(createSurnameButton(surnameKey, false));
+// Передаємо surnameDetailsList1 як джерело даних
+Object.keys(surnameDetailsList1).forEach(surnameKey => {
+    surnameList1.appendChild(createSurnameButton(surnameKey, surnameDetailsList1, false));
 });
 
 // Генеруємо кнопки для Списку 2
-list2Surnames.forEach(surnameKey => {
-    surnameList2.appendChild(createSurnameButton(surnameKey, true)); // Передаємо true для secondary класу
+// Передаємо surnameDetailsList2 як джерело даних та isSecondary = true
+Object.keys(surnameDetailsList2).forEach(surnameKey => {
+    surnameList2.appendChild(createSurnameButton(surnameKey, surnameDetailsList2, true));
 });
 
 // Обробник для кнопки "Повернутися до списку"
