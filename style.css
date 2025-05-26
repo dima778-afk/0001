@@ -21,16 +21,24 @@ h1 {
     margin-bottom: 30px;
 }
 
+.surname-columns-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
 .surname-column {
-    display: inline-block;
-    vertical-align: top;
     width: 48%;
+    min-width: 300px;
+    flex: 1;
     box-sizing: border-box;
     padding: 15px;
     background-color: #e9f5ff;
     border-radius: 5px;
-    margin: 1%;
     text-align: left;
+    margin-bottom: 20px;
 }
 
 .surname-column h2 {
@@ -51,16 +59,15 @@ h1 {
     margin-bottom: 8px;
 }
 
-/* Стилі для кнопок Списку 1 */
 .surname-button {
-    background-color: #007bff; /* Синій */
+    background-color: #007bff;
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Розтягуємо на всю ширину елемента списку */
-    text-align: left; /* Вирівнюємо текст по лівому краю */
+    width: 100%;
+    text-align: left;
     font-size: 1em;
     transition: background-color 0.3s ease;
 }
@@ -68,17 +75,15 @@ h1 {
     background-color: #0056b3;
 }
 
-/* Стилі для кнопок Списку 2 - новий клас */
 .surname-button.secondary {
-    background-color: #28a745; /* Зелений, наприклад */
+    background-color: #28a745;
 }
 .surname-button.secondary:hover {
     background-color: #218838;
 }
 
-/* Додаткові CSS для приховування/показу секцій */
 .details-section {
-    display: none; /* Спочатку приховати секцію деталей */
+    display: none;
     padding: 20px;
     border: 1px solid #ddd;
     margin-top: 20px;
