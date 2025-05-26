@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список прізвищ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+
+        .surname-column {
+            display: inline-block;
+            vertical-align: top;
+            width: 48%;
+            box-sizing: border-box;
+            padding: 15px;
+            background-color: #e9f5ff;
+            border-radius: 5px;
+            margin: 1%;
+            text-align: left;
+        }
+
+        .surname-column h2 {
+            color: #007bff;
+            margin-top: 0;
+            border-bottom: 1px solid #cceeff;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .surname-column ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .surname-column ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Стилі для кнопок Списку 1 */
+        .surname-button {
+            background-color: #007bff; /* Синій */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Розтягуємо на всю ширину елемента списку */
+            text-align: left; /* Вирівнюємо текст по лівому краю */
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .surname-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Стилі для кнопок Списку 2 - новий клас */
+        .surname-button.secondary {
+            background-color: #28a745; /* Зелений, наприклад */
+        }
+        .surname-button.secondary:hover {
+            background-color: #218838;
+        }
+
+        /* Додаткові CSS для приховування/показу секцій */
+        .details-section {
+            display: none; /* Спочатку приховати секцію деталей */
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="list-view">
+            <h1>Прізвища нашої родини</h1>
+            <div class="surname-column">
+                <h2>Список 1</h2>
+                <ul>
+                    <li><button class="surname-button" data-surname="Kovalchuk">Ковальчук</button></li>
+                    <li><button class="surname-button" data-surname="Melnyk">Мельник</button></li>
+                    <li><button class="surname-button" data-surname="Shevchenko">Шевченко</button></li>
+                    <li><button class="surname-button" data-surname="Petrenko">Петренко</button></li>
+                </ul>
+            </div>
+            <div class="surname-column">
+                <h2>Список 2</h2>
+                <ul>
+                    <li><button class="surname-button **secondary**" data-surname="Ivanenko">Іваненко</button></li>
+                    <li><button class="surname-button **secondary**" data-surname="Tkachenko">Ткаченко</button></li>
+                    <li><button class="surname-button **secondary**" data-surname="Savchenko">Савченко</button></li>
+                    <li><button class="surname-button **secondary**" data-surname="Polishchuk">Поліщук</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="details-view" class="details-section">
+            <h2>Деталі для прізвища: <span id="detail-surname-name"></span></h2>
+            <p id="detail-surname-info"></p>
+            <button class="back-button" id="back-to-list">Повернутися до списку</button>
+        </div>
+    </div>
+
+    <script>
+        const surnameDetails = {
+            "Kovalchuk": "Іван Ковальчук, народився 1980 року, походить з Житомирщини. Відомий своїми ремеслами у виробництві меблів.",
+            "Melnyk": "Оксана Мельник, народилася 1992 року, працює дизайнером інтер'єрів. Її роботи відзначені за креативність.",
+            "Shevchenko": "Тарас Шевченко, рік народження 1814. Великий український поет, прозаїк, художник та громадський діяч.",
+            "Petrenko": "Сергій Петренко, 1975 р.н., викладач математики у київському університеті. Автор кількох наукових праць.",
+            "Ivanenko": "Анна Іваненко, 1988 р.н., лікар-педіатр. Завжди готова допомогти своїм маленьким пацієнтам.",
+            "Tkachenko": "Дмитро Ткаченко, 1965 р.н., фермер. Займається вирощуванням органічних овочів на Черкащині.",
+            "Savchenko": "Вікторія Савченко, 2000 р.н., студентка Національного університету. Активістка молодіжного руху.",
+            "Polishchuk": "Олег Поліщук, 1978 р.н., інженер-програміст. Спеціалізується на розробці мобільних додатків."
+        };
+
+        const listView = document.getElementById('list-view');
+        const detailsView = document.getElementById('details-view');
+        const detailSurnameName = document.getElementById('detail-surname-name');
+        const detailSurnameInfo = document.getElementById('detail-surname-info');
+        const backToListButton = document.getElementById('back-to-list');
+
+        document.querySelectorAll('.surname-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const surname = button.dataset.surname;
+                detailSurnameName.textContent = surname;
+                detailSurnameInfo.textContent = surnameDetails[surname] || "Деталі не знайдено.";
+
+                listView.style.display = 'none';
+                detailsView.style.display = 'block';
+            });
+        });
+
+        backToListButton.addEventListener('click', () => {
+            listView.style.display = 'block';
+            detailsView.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
